@@ -13,7 +13,7 @@ def health():
     return "healthy"
 
 
-@app.post("/tz-at/", response_model=Timezone)
+@app.post("/tz-at", response_model=Timezone)
 def tz_at(query: Coordinates):
     return Timezone(timezone_id=tf.timezone_at(lat=query.lat, lng=query.lng))
 
