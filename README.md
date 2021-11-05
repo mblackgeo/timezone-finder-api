@@ -31,4 +31,5 @@ To develop, set up a new clean virtual environment and install the requirements:
 mkvirtualenv --python=/usr/bin/python3.7 tzapi
 pip3 install -r requirements.txt
 pip3 install -r requirements-dev.txt
+pre-commit init
 ```
