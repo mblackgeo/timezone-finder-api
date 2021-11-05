@@ -33,3 +33,9 @@ pip3 install -r requirements.txt
 pip3 install -r requirements-dev.txt
 pre-commit init
 ```
+
+* [Pytest](https://docs.pytest.org/en/6.2.x/) is used for the functional tests of the application (see `/tests`).
+* Code is linted using [flake8](https://flake8.pycqa.org/en/latest/) with `--max-line-length=120`
+* Code formatting is validated using [Black](https://github.com/psf/black)
+* [pre-commit](https://pre-commit.com/) is used to run these checks locally before files are pushed to git
+* The [Github Actions pipeline](.github/workflows/pipeline.yml) also runs these checks and tests
