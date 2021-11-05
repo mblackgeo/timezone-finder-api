@@ -12,7 +12,7 @@ Build on:
 To get started quickly simply clone the repository and build and run:
 
 ```shell
-./build.sh && ./run-local.sh
+make run-local
 ```
 
 This will start a local instance of FastAPI which can then be queried with latitude and longitude to return a string of the timezone, for example:
