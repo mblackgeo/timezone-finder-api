@@ -39,3 +39,7 @@ pre-commit init
 * Code formatting is validated using [Black](https://github.com/psf/black)
 * [pre-commit](https://pre-commit.com/) is used to run these checks locally before files are pushed to git
 * The [Github Actions pipeline](.github/workflows/pipeline.yml) also runs these checks and tests
+
+## Deployment
+
+Full deployment is handled by the [AWS CDK](https://aws.amazon.com/cdk/). See further details in `/infra`.
