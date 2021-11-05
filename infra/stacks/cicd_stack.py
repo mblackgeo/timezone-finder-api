@@ -41,7 +41,7 @@ class CiCdStack(core.Stack):
         build_pipeline.add_stage(
             stage_name="GithubSources",
             actions=[
-                actions.GitHubSourceAction(
+                actions.BitBucketSourceAction(
                     connection_arn=conf.github_connection_arn,
                     owner=conf.github_owner,
                     repo=conf.github_repo,
