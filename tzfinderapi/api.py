@@ -1,11 +1,11 @@
 import uvicorn
 from fastapi import FastAPI
-from timezonefinder import TimezoneFinderL
+from timezonefinder import TimezoneFinder
 
 from tzfinderapi.models import Coordinates, Timezone
 
 app = FastAPI()
-tf = TimezoneFinderL(in_memory=True)
+tf = TimezoneFinder(in_memory=True)
 
 
 @app.get("/health")
