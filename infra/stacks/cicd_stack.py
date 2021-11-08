@@ -15,7 +15,7 @@ class CiCdStack(core.Stack):
 
         self.pipeline_id = f"{id}-cicd-stack"
 
-        # Create an S3 bucket that will hold the repository colned from Github
+        # Create an S3 bucket that will hold the repository cloned from Github
         artifact_bucket = s3.Bucket(
             scope=self,
             id=f"{id}-artifacts-bucket",
