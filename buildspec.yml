@@ -3,7 +3,7 @@ version: 0.2
 env:
   shell: bash
   variables:
-    DOCKER_FILE_NAME: "Dockerfile"
+    DOCKER_FILE_NAME: "Dockerfile.aws"
     CONTAINER_TO_RELEASE_NAME: "tzfinderapi"
     REPOSITORY_URI: "" # CDK will populate this automatically
 
