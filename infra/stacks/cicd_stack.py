@@ -47,7 +47,7 @@ class CiCdStack(core.Stack):
                     owner=conf.github_owner,
                     repo=conf.github_repo,
                     action_name="SourceCodeRepo",
-                    branch="master",
+                    branch="main",
                     output=source_output,
                 )
             ],
