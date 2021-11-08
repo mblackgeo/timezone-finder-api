@@ -5,7 +5,7 @@ env:
   variables:
     DOCKER_FILE_NAME: "Dockerfile"
     CONTAINER_TO_RELEASE_NAME: "tzfinderapi"
-    REPOSITORY_URI: "" # TODO get this programatically
+    REPOSITORY_URI: "" # CDK will populate this automatically
 
 phases:
   install:
