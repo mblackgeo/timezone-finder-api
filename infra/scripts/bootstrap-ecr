@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -e
+
+REPO_NAME="sparkgeouk/python"
+IMAGE_TAG="3.7-slim-buster"
+DOCKER_FILE="$(dirname "$0")/Dockerfile"
+
+
+# check / create ECR repository
+output=$(aws ecr describe-repositories --repository-names ${REPO_NAME} 2>&1)
+if [ $? -ne 0 ]; then
+  if echo ${output} | grep -q RepositoryNotFoundException; then
+    aws ecr create-repository --repository-name ${REPO_NAME}
+  else
+    >&2 echo ${output}
+  fi
+fi
+
+# Setup ECR credentials for docker
+ECR_REPOSITORY=$(echo $output | jq .repositories[0].repositoryUri | tr -d '"')
+aws ecr get-login-password | docker login --password-stdin --username AWS $ECR_REPOSITORY
+
+# build and push the image to ECR
+docker build -f $DOCKER_FILE -t "${ECR_REPOSITORY}:${IMAGE_TAG}" .
+docker push "${ECR_REPOSITORY}:${IMAGE_TAG}"
