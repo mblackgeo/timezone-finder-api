@@ -5,6 +5,7 @@
 
 This CDK project follows the same approach as this post[^1], where the setup is as follows:
 
+* Create an ECR repository to hold the base python image (to workaround Dockerhub's pull rate limit)
 * CodePipeline clones the Github repository, builds a docker image for the app and uploads it to the Elastic Container Registry (ECR).
 * An Elastic Container Service (ECS) cluster downloads the image from ECR and runs it in a container via Fargate.
 * The cluster runs our app in a Virtual Private Cloud (VPC) and exposes it to the internet via a Load balancer.
@@ -23,9 +24,29 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Configuration is handled through the `.env` file. A copy of the `.env.example` file should be created and populated. It is also assumed that you AWS credentials are setup to work with  CDK and your AWS account has already been bootstrap for CDK (`cdk boostrap`).
+Configuration is handled through the `.env` file. A copy of the `.env.example` file should be created and populated. It is also assumed that you AWS credentials are setup to work with CDK and your AWS account has already been bootstrap for CDK (`cdk boostrap`).
 
-At this point you can now synthesize the CloudFormation template for this code.
+Before continuing, we need to create an ECR repository and publish a the python image to avoid Dockerhub's rate limits. Run the script to create the repo and push the image:
+
+```shell
+./scripts/bootstrap-ecr
+```
+This will have created a new ECR repository with the `python:3.7-slim-buster` image which is used by to build the image in CodePipeline (see `Dockerfile.aws` in the root of this repository).
+
+At this point you can now synthesize the CloudFormation template for this code. For the first deployment the stacks should be deployed in this order:
+
+```shell
+# create the VPC
+cdk deploy networking-stack
+
+# create the CodePipeline that will build and store container in ECR
+cdk deploy cicd-stack
+
+# Before deploying the Fargate container with Load Balancer check that the
+# build succeeded and the repository is present in ECR after which, deploy the
+# final stack to serve the API
+cdk deploy serving-stack
+```
 
 ```shell
 cdk synth
