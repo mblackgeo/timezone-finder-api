@@ -12,6 +12,11 @@ tf = TimezoneFinder(in_memory=True)
 handler = Mangum(app=app)
 
 
+@app.get("/")
+def root():
+    return {"message": "Hello World"}
+
+
 @app.get("/health")
 def health():
     return "healthy"
