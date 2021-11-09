@@ -1,11 +1,15 @@
 import uvicorn
 from fastapi import FastAPI
+from mangum import Mangum
 from timezonefinder import TimezoneFinder
 
 from tzfinderapi.models import Coordinates, Timezone
 
 app = FastAPI()
 tf = TimezoneFinder(in_memory=True)
+
+# Add handler for AWS Lambda
+handler = Mangum(app=app)
 
 
 @app.get("/health")
