@@ -20,12 +20,17 @@ pip install -r requirements.txt
 cdk bootstrap
 ```
 
+CDK can then be used to deploy:
+
 ```shell
 # synth the cloud formation template to ensure there are no errors
 cdk synth
 
 # deploy the api
-cdk deploy --all
+cdk deploy
+
+# to remove everything
+cdk destroy
 ```
 
 ## Useful commands
@@ -35,6 +40,3 @@ cdk deploy --all
  * `cdk deploy`      deploy this stack to your default AWS account/region
  * `cdk diff`        compare deployed stack with current state
  * `cdk docs`        open CDK documentation
-
-
-[^1]: https://medium.com/axel-springer-tech/how-to-automatically-deploy-a-ml-classifier-to-the-cloud-with-aws-cdk-20f8946d913c
