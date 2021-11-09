@@ -29,7 +29,9 @@ cdk synth
 # deploy the api
 cdk deploy
 
-# to remove everything
+# To remove
+# Note that CDK cannot yet remove the images stored in ECR so this should
+# be done manually
 cdk destroy
 ```
 
