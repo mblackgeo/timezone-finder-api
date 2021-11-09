@@ -1,3 +1,5 @@
+import os
+
 import uvicorn
 from fastapi import FastAPI
 from mangum import Mangum
@@ -5,8 +7,12 @@ from timezonefinder import TimezoneFinder
 
 from tzfinderapi.models import Coordinates, Timezone
 
-app = FastAPI()
 tf = TimezoneFinder(in_memory=True)
+
+# Ensure the docs are served at the correct endpoint
+stage = os.environ.get("STAGE", None)
+openapi_prefix = f"/{stage}" if stage else "/"
+app = FastAPI(openapi_prefix=openapi_prefix)
 
 # Add handler for AWS Lambda
 handler = Mangum(app=app)
