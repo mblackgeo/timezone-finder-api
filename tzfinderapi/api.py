@@ -11,8 +11,8 @@ tf = TimezoneFinder(in_memory=True)
 
 # Ensure the docs are served at the correct endpoint
 stage = os.environ.get("STAGE", None)
-openapi_prefix = f"/{stage}" if stage else "/"
-app = FastAPI(openapi_prefix=openapi_prefix)
+root_path = f"/{stage}" if stage else "/"
+app = FastAPI(root_path=root_path)
 
 # Add handler for AWS Lambda
 handler = Mangum(app=app)
