@@ -36,6 +36,9 @@ This will have created a new ECR repository with the `python:3.7-slim-buster` im
 At this point you can now synthesize the CloudFormation template for this code. For the first deployment the stacks should be deployed in this order:
 
 ```shell
+# synth the cloud formation template to ensure there are no errors
+cdk synth
+
 # create the VPC
 cdk deploy networking-stack
 
@@ -46,10 +49,6 @@ cdk deploy cicd-stack
 # build succeeded and the repository is present in ECR after which, deploy the
 # final stack to serve the API
 cdk deploy serving-stack
-```
-
-```shell
-cdk synth
 ```
 
 ## Useful commands
