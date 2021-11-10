@@ -1,3 +1,9 @@
+def test_root(client):
+    response = client.get("/")
+    assert response.status_code == 200
+    assert response.json() == {"message": "Hello World"}
+
+
 def test_health(client):
     response = client.get("/health")
     assert response.status_code == 200
@@ -11,6 +17,6 @@ def test_tz_at(client):
 
 
 def test_tz(client):
-    response = client.post("/tz-at", json={"lat": 51.5, "lng": -0.11})
+    response = client.post("/tz", json={"lat": 51.5, "lng": -0.11})
     assert response.status_code == 200
     assert response.json() == {"timezone_id": "Europe/London"}
