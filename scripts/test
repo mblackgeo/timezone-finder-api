@@ -1,0 +1,5 @@
+echo 'Expecting hello world response from http://0.0.0.0:8000:'
+curl -X 'GET' \
+  'http://0.0.0.0:8000/' \
+  -H 'accept: application/json'
+echo

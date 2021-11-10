@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 docker run -ti \
-    -p 8000:8000 \
+    -p 9000:8080 \
     -e ENV='test' \
-    "tzfinderapi:latest" \
+    "tzfinderapi-lambda:latest" \
     "$@"
