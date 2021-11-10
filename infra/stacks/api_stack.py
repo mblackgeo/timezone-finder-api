@@ -45,4 +45,10 @@ class RestfulApiGatewayStack(core.Stack):
         )
 
         # Register the A record for the api
-        route53.ARecord(self, "AliasRecord", zone=zone, target=route53.RecordTarget.from_alias(targets.ApiGateway(api)))
+        route53.ARecord(
+            self,
+            "AliasRecord",
+            record_name=api_domain,
+            zone=zone,
+            target=route53.RecordTarget.from_alias(targets.ApiGateway(api)),
+        )
