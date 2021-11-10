@@ -20,6 +20,8 @@ pip install -r requirements.txt
 cdk bootstrap
 ```
 
+:exclamation: The environment variables should be setup by copying `.env.example` to `.env` and populating with required values.
+
 CDK can then be used to deploy:
 
 ```shell
