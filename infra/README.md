@@ -20,7 +20,7 @@ pip install -r requirements.txt
 cdk bootstrap
 ```
 
-:exclamation: The environment variables should be setup by copying `.env.example` to `.env` and populating with required values.
+:exclamation: The environment variables should be setup by copying `.env.example` to `.env` and populating with required values. The API Gateway can be setup to use a custom subdomain if you have a domain registered in Route 53 but this is optional.
 
 CDK can then be used to deploy:
 
@@ -40,8 +40,7 @@ cdk deploy
 cdk destroy
 ```
 
-## Useful commands
-
+Useful commands:
  * `cdk ls`          list all stacks in the app
  * `cdk synth`       emits the synthesized CloudFormation template
  * `cdk deploy`      deploy this stack to your default AWS account/region
