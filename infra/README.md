@@ -7,7 +7,7 @@ This CDK project deploys the API using AWS Lambda and AWS API Gateway
 
 ## Development
 
-This project was created with AWS CDK. The `cdk.json` file tells the CDK Toolkit how to execute your app.
+This project was created with AWS CDK. The `cdk.json` file tells the CDK Toolkit how to execute the app.
 
 A new virtual environment should be created for the infra deployment:
 
@@ -26,6 +26,9 @@ CDK can then be used to deploy:
 # synth the cloud formation template to ensure there are no errors
 cdk synth
 
+# check what changes will be made first before deploying
+cdk diff
+
 # deploy the api
 cdk deploy
 
@@ -42,3 +45,22 @@ cdk destroy
  * `cdk deploy`      deploy this stack to your default AWS account/region
  * `cdk diff`        compare deployed stack with current state
  * `cdk docs`        open CDK documentation
+
+
+## A note about AWS SSO
+
+If you are using AWS Single Sign On (SSO), the you should first ensure you are signed in:
+
+```shell
+# if this is the first time using the AWS command line, configure SSO:
+aws sso configure
+
+# then login to generate access keys
+aws sso login
+```
+
+However, CDK and AWS SSO are not yet connected. A helper npm package, [cdk-sso-sync](https://www.npmjs.com/package/cdk-sso-sync) can be used to ensure CDK can read your access keys:
+
+```shell
+cdk-sso-sync <PROFILE_NAME>
+```
