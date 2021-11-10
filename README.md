@@ -1,7 +1,7 @@
 # timezone-finder-api
 An API to quickly find the [timezone ID](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) of a point at a given latitude/longitude.
 
-Build on:
+Built on:
 
 * [FastAPI](https://fastapi.tiangolo.com)
 * [timezonefinder](https://github.com/jannikmi/timezonefinder)
