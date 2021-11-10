@@ -3,17 +3,11 @@
 
 ## Overview
 
-This CDK project follows the same approach as this post[^1], where the setup is as follows:
-
-* CodePipeline clones the Github repository, builds a docker image for the app and uploads it to the Elastic Container Registry (ECR).
-* An Elastic Container Service (ECS) cluster downloads the image from ECR and runs it in a container via Fargate.
-* The cluster runs our app in a Virtual Private Cloud (VPC) and exposes it to the internet via a Load balancer.
-
-As the code itself lives outside of AWS (i.e. here on Github), a connection should be made using the [AWS Console](https://console.aws.amazon.com/codesuite/settings/connections) so that AWS can clone the repository from Github.
+This CDK project deploys the API using AWS Lambda and AWS API Gateway
 
 ## Development
 
-This project was created with AWS CDK. The `cdk.json` file tells the CDK Toolkit how to execute your app.
+This project was created with AWS CDK. The `cdk.json` file tells the CDK Toolkit how to execute the app.
 
 A new virtual environment should be created for the infra deployment:
 
@@ -21,14 +15,27 @@ A new virtual environment should be created for the infra deployment:
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+
+# if this is the first time CDK has been used, your account should be bootstrapped
+cdk bootstrap
 ```
 
-Configuration is handled through the `.env` file. A copy of the `.env.example` file should be created and populated. It is also assumed that you AWS credentials are setup to work with  CDK and your AWS account has already been bootstrap for CDK (`cdk boostrap`).
-
-At this point you can now synthesize the CloudFormation template for this code.
+CDK can then be used to deploy:
 
 ```shell
+# synth the cloud formation template to ensure there are no errors
 cdk synth
+
+# check what changes will be made first before deploying
+cdk diff
+
+# deploy the api
+cdk deploy
+
+# To remove
+# Note that CDK cannot yet remove the images stored in ECR so this should
+# be done manually
+cdk destroy
 ```
 
 ## Useful commands
@@ -40,4 +47,20 @@ cdk synth
  * `cdk docs`        open CDK documentation
 
 
-[^1]: https://medium.com/axel-springer-tech/how-to-automatically-deploy-a-ml-classifier-to-the-cloud-with-aws-cdk-20f8946d913c
+## A note about AWS SSO
+
+If you are using AWS Single Sign On (SSO), the you should first ensure you are signed in:
+
+```shell
+# if this is the first time using the AWS command line, configure SSO:
+aws sso configure
+
+# then login to generate access keys
+aws sso login
+```
+
+However, CDK and AWS SSO are not yet connected. A helper npm package, [cdk-sso-sync](https://www.npmjs.com/package/cdk-sso-sync) can be used to ensure CDK can read your access keys:
+
+```shell
+cdk-sso-sync <PROFILE_NAME>
+```
