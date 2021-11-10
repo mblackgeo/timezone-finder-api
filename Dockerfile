@@ -1,14 +1,14 @@
-# This dockerfile builds the FastAPI container suitable for deployment to AWS Lambda
-# This file is automatically picked up and built when deploying with CDK (see `/infra`)
-
-FROM public.ecr.aws/lambda/python:3.8
+FROM python:3.7-slim-buster
 
 # Copy and install the api
+WORKDIR /usr/src/app
 RUN pip3 install pip==20.2.4
-COPY tzfinderapi/ ${LAMBDA_TASK_ROOT}/tzfinderapi
-COPY setup.py ${LAMBDA_TASK_ROOT}
-COPY setup.cfg ${LAMBDA_TASK_ROOT}
-RUN pip3 install ${LAMBDA_TASK_ROOT}
+COPY tzfinderapi/ tzfinderapi
+COPY setup.py setup.py
+COPY setup.cfg setup.cfg
+RUN pip3 install .
 
-# Set the CMD to your handler (could also be done as a parameter override outside of the Dockerfile)
-CMD [ "tzfinderapi.api.handler" ]
+# Copy the entrypoint script that will run uvicorn
+COPY ./run.sh /run.sh
+
+CMD /run.sh

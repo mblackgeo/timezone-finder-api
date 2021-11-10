@@ -1,0 +1,12 @@
+# This dockerfile builds the FastAPI container suitable for deployment to AWS Lambda
+# This file is automatically picked up and built when deploying with CDK (see `/infra`)
+FROM public.ecr.aws/lambda/python:3.8
+
+# Copy and install the api
+RUN pip3 install pip==20.2.4
+COPY tzfinderapi/ ${LAMBDA_TASK_ROOT}/tzfinderapi
+COPY setup.py ${LAMBDA_TASK_ROOT}
+COPY setup.cfg ${LAMBDA_TASK_ROOT}
+RUN pip3 install ${LAMBDA_TASK_ROOT}
+
+CMD [ "tzfinderapi.api.handler" ]

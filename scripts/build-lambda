@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker build -f Dockerfile -t "tzfinderapi-lambda:latest" $@ .
+docker build -f Dockerfile.aws -t "tzfinderapi-lambda:latest" $@ .

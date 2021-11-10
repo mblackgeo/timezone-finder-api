@@ -50,7 +50,7 @@ class RestfulApiGatewayStack(core.Stack):
         fn = _lambda.DockerImageFunction(
             self,
             "RestfulApiFxn",
-            code=_lambda.DockerImageCode.from_image_asset(".."),
+            code=_lambda.DockerImageCode.from_image_asset(directory="..", file="Dockerfile.aws"),
             environment=lambda_env,
         )
 
