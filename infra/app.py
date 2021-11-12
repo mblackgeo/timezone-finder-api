@@ -13,6 +13,7 @@ cdk_env = core.Environment(region=conf.aws_region, account=conf.aws_account)
 # RestfulApiGatewayStack(app, "tzfinder-api-stack", env=cdk_env)
 
 # Using API gateway v2
+# Note that domain name is required at the moment for this stack
 RestfulApiGatewayv2Stack(app, "tzfinder-api-stack", env=cdk_env)
 
 app.synth()

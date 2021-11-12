@@ -14,6 +14,7 @@ class RestfulApiGatewayv2Stack(core.Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         # Setup Route 53 domain and certs
+        # TODO make this optional
         root_domain = conf.domain_name
         api_domain = f"{conf.api_subdomain}.{root_domain}"
 
