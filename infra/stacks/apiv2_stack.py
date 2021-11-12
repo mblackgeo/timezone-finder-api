@@ -35,31 +35,26 @@ class RestfulApiGatewayv2Stack(core.Stack):
         # Configure the api domain options for the rest api
         domain_name = apigw.DomainName(scope=self, id=f"{id}-domain-name", certificate=cert, domain_name=api_domain)
 
-        # Setting the STAGE env var for the lambda image is not required
-        # when using a custom domain as the docs are served from the root path
-        lambda_env = None
-
         # Register and build an Lambda docker image
         # This picks up on Dockerfile in the parent folder
         fn = _lambda.DockerImageFunction(
             scope=self,
             id=f"{id}-restfulapifxn",
             code=_lambda.DockerImageCode.from_image_asset(directory="..", file="Dockerfile.aws"),
-            environment=lambda_env,
         )
 
-        httpapi = apigw.HttpApi(  # noqa: F841
+        http_api = apigw.HttpApi(
             scope=self,
             id=f"{id}-endpoint",
             default_integration=apigw_integrations.LambdaProxyIntegration(handler=fn),
             default_domain_mapping=apigw.DomainMappingOptions(domain_name=domain_name),
         )
 
-        # httpapi.add_routes(
-        #     path="/",
-        #     methods=[apigw.HttpMethod.ANY],
-        #     integration=apigw_integrations.LambdaProxyIntegration(handler=fn),
-        # )
+        http_api.add_routes(
+            path="/",
+            methods=[apigw.HttpMethod.ANY],
+            integration=apigw_integrations.LambdaProxyIntegration(handler=fn),
+        )
 
         # Register the A record for the api
         route53.ARecord(
