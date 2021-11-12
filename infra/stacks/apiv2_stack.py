@@ -20,7 +20,7 @@ class RestfulApiGatewayv2Stack(core.Stack):
         # Get the HostedZone of the root domain
         zone = route53.HostedZone.from_lookup(
             scope=self,
-            id="{id}-hosted-zone",
+            id=f"{id}-hosted-zone",
             domain_name=root_domain,
         )
 
@@ -61,6 +61,7 @@ class RestfulApiGatewayv2Stack(core.Stack):
             scope=self,
             id=f"{id}-aliasrecord",
             zone=zone,
+            record_name=api_domain,
             target=route53.RecordTarget.from_alias(
                 targets.ApiGatewayv2DomainProperties(
                     regional_domain_name=domain_name.regional_domain_name,
