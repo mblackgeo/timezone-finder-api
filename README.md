@@ -34,7 +34,7 @@ To develop, set up a new clean virtual environment and install the requirements:
 mkvirtualenv --python=/usr/bin/python3.7 tzapi
 pip3 install -r requirements.txt
 pip3 install -r requirements-dev.txt
-pre-commit init
+pre-commit install
 ```
 
 * [Pytest](https://docs.pytest.org/en/6.2.x/) is used for the functional tests of the application (see [`/tests`](tests/)).
